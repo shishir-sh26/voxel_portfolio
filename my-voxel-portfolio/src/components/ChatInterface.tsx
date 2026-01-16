@@ -4,6 +4,7 @@ import { gemini } from '../services/geminiService';
 import type { Message } from '../types';
 
 const ChatInterface: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { role: 'assistant', content: 'Welcome to my voxel world! Ask me anything about my projects.' }
   ]);
@@ -15,7 +16,7 @@ const ChatInterface: React.FC = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
   const handleSend = async () => {
     if (!input.trim() || loading) return;
@@ -36,33 +37,62 @@ const ChatInterface: React.FC = () => {
     setLoading(false);
   };
 
-  return (
-    <div className="fixed bottom-4 left-4 w-full max-w-md z-20 flex flex-col">
-      <div className="mc-dark-panel p-4 mb-2 h-64 overflow-y-auto" ref={scrollRef}>
-        {messages.map((m, i) => (
-          <div key={i} className={`mb-2 text-xs leading-relaxed ${m.role === 'user' ? 'text-green-400' : 'text-white'}`}>
-            <span className="font-bold mr-2">[{m.role === 'user' ? 'Visitor' : 'VoxelBot'}]:</span>
-            {m.content}
-          </div>
-        ))}
-        {loading && <div className="text-white text-xs animate-pulse">[VoxelBot is typing...]</div>}
-      </div>
-      
-      <div className="flex gap-2">
-        <input 
-          type="text" 
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          placeholder="Type message..."
-          className="flex-1 bg-black/80 border-4 border-[#373737] text-white px-3 py-2 text-xs focus:outline-none focus:border-white"
-        />
+  if (!isOpen) {
+    return (
+      <div className="fixed bottom-6 left-6 z-50">
         <button 
-          onClick={handleSend}
-          className="mc-button px-4 py-2 text-[10px] uppercase font-bold text-white shadow-lg"
+          onClick={() => setIsOpen(true)}
+          className="mc-button w-12 h-12 flex items-center justify-center text-white text-xl shadow-[6px_6px_0px_rgba(0,0,0,0.8)]"
+          title="Open AI Guide"
         >
-          Chat
+          ?
         </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed bottom-6 left-6 w-full max-w-[320px] sm:max-w-md z-50 flex flex-col pointer-events-auto animate-in slide-in-from-left duration-300">
+      <div className="mc-panel p-0 bg-[#c6c6c6] overflow-hidden flex flex-col">
+        {/* Header */}
+        <div className="bg-[#373737] p-3 flex justify-between items-center border-b-4 border-black">
+          <span className="text-[10px] text-white font-bold uppercase">_GUIDE_BOT_</span>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="text-white hover:text-red-500 font-bold px-2 text-[12px]"
+          >
+            X
+          </button>
+        </div>
+
+        {/* Chat Area */}
+        <div className="bg-black/90 p-4 h-64 overflow-y-auto no-scrollbar scroll-smooth" ref={scrollRef}>
+          {messages.map((m, i) => (
+            <div key={i} className={`mb-3 text-[8px] leading-tight ${m.role === 'user' ? 'text-green-400' : 'text-white'}`}>
+              <span className="font-bold mr-2">[{m.role === 'user' ? 'VISITOR' : 'BOT'}]:</span>
+              {m.content}
+            </div>
+          ))}
+          {loading && <div className="text-white text-[8px] animate-pulse">[_TYPING_]</div>}
+        </div>
+        
+        {/* Input Area */}
+        <div className="p-3 bg-gray-400 border-t-4 border-black flex gap-2">
+          <input 
+            type="text" 
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="CHAT_HERE"
+            className="flex-1 bg-black text-white px-3 py-2 text-[8px] focus:outline-none border-2 border-white uppercase"
+          />
+          <button 
+            onClick={handleSend}
+            className="mc-button-sm px-4 py-2 text-[8px] font-bold text-white"
+          >
+            SEND
+          </button>
+        </div>
       </div>
     </div>
   );

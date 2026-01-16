@@ -38,6 +38,7 @@ body {
   border-right-color: #555555;
   transition: all 0.1s;
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .mc-button:hover {
@@ -51,6 +52,29 @@ body {
   border-bottom-color: #dbdbdb;
   border-right-color: #dbdbdb;
   transform: translateY(2px);
+}
+
+.mc-button-sm {
+  background-color: #8b8b8b;
+  border: 2px solid;
+  border-top-color: #dbdbdb;
+  border-left-color: #dbdbdb;
+  border-bottom-color: #555555;
+  border-right-color: #555555;
+  transition: all 0.1s;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.mc-button-sm:hover {
+  background-color: #9b9b9b;
+}
+
+.mc-button-sm:active {
+  border-top-color: #555555;
+  border-left-color: #555555;
+  border-bottom-color: #dbdbdb;
+  border-right-color: #dbdbdb;
 }
 
 .mc-panel {

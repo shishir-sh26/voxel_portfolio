@@ -18,12 +18,15 @@ export interface Project {
   thumbnail: string;
   category: 'web' | 'mobile' | 'ai';
   voxelArt?: VoxelData[];
+  liveUrl?: string;
+  codeUrl?: string;
 }
 
 export interface Skill {
   name: string;
   level: number;
   color: string;
+  category?: 'Frontend' | 'Backend' | 'AI & ML' | 'IoT & Embedded';
 }
 
 export interface Message {
