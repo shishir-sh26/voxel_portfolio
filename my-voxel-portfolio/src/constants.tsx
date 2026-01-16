@@ -16,6 +16,19 @@ const createVoxelCube = (size: number, color: string, offset: [number, number, n
   return voxels;
 };
 
+// Voxel Creeper for the bottom
+export const CREEPER_VOXEL: VoxelData[] = [
+  ...createVoxelCube(1.5, '#4ade80', [-0.75, 4, -0.75]), // Head
+  { pos: [-0.4, 4.8, 0.76], color: '#000' }, // Eye L
+  { pos: [0.4, 4.8, 0.76], color: '#000' },  // Eye R
+  { pos: [0, 4.4, 0.76], color: '#000' },    // Mouth center
+  ...createVoxelCube(1.2, '#22c55e', [-0.6, 1.5, -0.6]), // Body
+  ...createVoxelCube(0.8, '#16a34a', [-1, 0, 0.2]),   // Front Leg L
+  ...createVoxelCube(0.8, '#16a34a', [0.2, 0, 0.2]),  // Front Leg R
+  ...createVoxelCube(0.8, '#16a34a', [-1, 0, -1]),    // Back Leg L
+  ...createVoxelCube(0.8, '#16a34a', [0.2, 0, -1]),   // Back Leg R
+];
+
 // Voxel Art for Shishir (Character/Avatar)
 export const HERO_CHARACTER: VoxelData[] = [
   ...createVoxelCube(2, '#444', [-1, 0, -1]), // Body

@@ -7,10 +7,12 @@ body {
   overflow: hidden;
   background-color: #050505;
   font-family: 'Press Start 2P', cursive;
+  /* Hide default cursor globally */
+  cursor: none !important;
   user-select: none;
 }
 
-/* Custom scrollbar for pixel feel */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -22,11 +24,10 @@ body {
   border: 2px solid #111;
 }
 
-.pixel-border {
-  border: 4px solid;
-  border-image-slice: 2;
-  border-image-width: 2;
-  border-color: #3d3d3d #1a1a1a #1a1a1a #3d3d3d;
+.mc-button, .mc-button-sm {
+  cursor: none !important;
+  text-transform: uppercase;
+  transition: all 0.1s;
 }
 
 .mc-button {
@@ -36,22 +37,11 @@ body {
   border-left-color: #dbdbdb;
   border-bottom-color: #555555;
   border-right-color: #555555;
-  transition: all 0.1s;
-  cursor: pointer;
-  text-transform: uppercase;
 }
 
 .mc-button:hover {
   background-color: #9b9b9b;
   transform: scale(1.05);
-}
-
-.mc-button:active {
-  border-top-color: #555555;
-  border-left-color: #555555;
-  border-bottom-color: #dbdbdb;
-  border-right-color: #dbdbdb;
-  transform: translateY(2px);
 }
 
 .mc-button-sm {
@@ -61,20 +51,6 @@ body {
   border-left-color: #dbdbdb;
   border-bottom-color: #555555;
   border-right-color: #555555;
-  transition: all 0.1s;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.mc-button-sm:hover {
-  background-color: #9b9b9b;
-}
-
-.mc-button-sm:active {
-  border-top-color: #555555;
-  border-left-color: #555555;
-  border-bottom-color: #dbdbdb;
-  border-right-color: #dbdbdb;
 }
 
 .mc-panel {
@@ -101,12 +77,35 @@ body {
   display: none;
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* --- SWORD CURSOR STYLING --- */
+.sword-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 9999;
+  /* Use the specified local image file */
+  background-image: url('/Diamond_Sword-removebg-preview.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  /* Align the tip (usually top-right for a sword sprite) to the mouse center */
+  transform: translate(-75%, -25%) rotate(0deg);
+  transition: transform 0.08s ease-out;
 }
 
-/* Ensure font applies to Tailwind utilities */
+/* Swing animation when clicking */
+body:active .sword-cursor {
+  transform: translate(-75%, -25%) rotate(-35deg);
+}
+
+/* Ensure interactive elements still hide the system cursor */
+a, button, input, [role="button"], canvas, section {
+  cursor: none !important;
+}
+
 @layer base {
   * {
     font-family: 'Press Start 2P', cursive;
