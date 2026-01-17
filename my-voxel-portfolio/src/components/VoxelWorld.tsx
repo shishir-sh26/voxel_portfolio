@@ -125,7 +125,7 @@ const Scene: React.FC = () => {
                 WORLD LOADED
               </div>
               <h1 className="text-5xl sm:text-8xl font-black text-white drop-shadow-[8px_8px_0px_rgba(0,0,0,1)] tracking-tighter uppercase mb-4">
-                SHISHIR
+                SHISHIR R KULAL
               </h1>
               <div className="mc-panel px-4 py-2 inline-block bg-yellow-400 mb-6 border-4 border-black">
                  <p className="text-[10px] text-black font-bold uppercase tracking-tight">AI & ML Engineer / Developer</p>
