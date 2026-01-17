@@ -111,3 +111,13 @@ a, button, input, [role="button"], canvas, section {
     font-family: 'Press Start 2P', cursive;
   }
 }
+
+@theme {
+  --font-press-start: "Press Start 2P", cursive;
+}
+
+@layer base {
+  * {
+    font-family: var(--font-press-start);
+  }
+}

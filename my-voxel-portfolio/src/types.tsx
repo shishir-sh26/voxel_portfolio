@@ -20,6 +20,15 @@ export interface Project {
   voxelArt?: VoxelData[];
   liveUrl?: string;
   codeUrl?: string;
+  videoUrl?: string;
+}
+
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  link?: string;
 }
 
 export interface Skill {
