@@ -1,75 +1,82 @@
-# React + TypeScript + Vite
+# 🕹️ VoxelQuest: Shishir's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **VoxelQuest**, a fully immersive, 3D voxel-based portfolio world inspired by the aesthetic of Minecraft. Navigate through a blocky digital landscape, interact with voxel models, and chat with an AI guide about my technical journey.
 
-Currently, two official plugins are available:
+![Voxel Portfolio Preview](https://picsum.photos/1200/600?grayscale&blur=2)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Key Features
 
-## React Compiler
+- **🌲 Immersive Voxel World**: A high-performance 3D environment built with `React Three Fiber` and `Three.js`.
+- **🤖 AI Guide Bot**: Powered by **Google Gemini 3 Flash**, an integrated assistant that can answer questions about my skills and projects in real-time.
+- **⚔️ Minecraft UI/UX**:
+  - Custom pixelated UI components (HUD, buttons, panels).
+  - Interactive **Diamond Sword Cursor**.
+  - Iconic "Press Start 2P" typography.
+  - Authentic dirt-path loading screen with randomized splash text.
+- **📹 Video Quests**: Project cards that feature real video previews of applications upon hover.
+- **📜 Skill Tree & Certifications**: Minecraft-themed progress bars and "Knowledge Book" certification cards.
+- **🎶 Atmospheric Audio**: Features C418's _Aria Math_ for that nostalgic, creative vibe (Music toggle included).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend**: React 19, TypeScript
+- **3D Engine**: Three.js, React Three Fiber, React Three Drei
+- **AI Integration**: Google Generative AI (Gemini SDK)
+- **Styling**: Tailwind CSS v4 (PostCSS)
+- **Build Tool**: Vite
+- **Animations**: Framer Motion (for UI) & Three.js Lerping (for 3D)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+### Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js (Latest LTS recommended)
+- A **Google Gemini API Key** (Get one at [aistudio.google.com](https://aistudio.google.com/))
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+### Installation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **Clone the repository**:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+   ```bash
+   git clone https://github.com/shishir-sh26/voxel-portfolio.git
+   cd voxel-portfolio
+   ```
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+2. **Install dependencies**:
 
-yo
+   ```bash
+   npm install
+   ```
+
+3. **Environment Setup**:
+   Create a `.env` file in the root directory and add your Gemini API key:
+
+   ```env
+   API_KEY=your_gemini_api_key_here
+   ```
+
+4. **Launch the World**:
+   ```bash
+   npm run dev
+   ```
+
+## 📂 Project Structure
+
+- `App.tsx`: Main entry point, handles loading states, audio, and global UI.
+- `components/VoxelWorld.tsx`: The core 3D scene, scroll controls, and layout.
+- `components/VoxelModel.tsx`: Reusable component for rendering block-based 3D models.
+- `components/ChatInterface.tsx`: The UI for the Gemini-powered Guide Bot.
+- `constants.tsx`: Contains project data, skill levels, and voxel model definitions.
+- `services/geminiService.ts`: Logic for interacting with the Google GenAI API.
+
+## 🎨 Customizing the World
+
+To add your own projects or change the character model, look into `constants.tsx`. You can use the `createVoxelCube` helper to build complex structures out of individual `VoxelData` points.
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+_“The sun is rising, and the voxels are calling. Happy coding!”_ 🔨
