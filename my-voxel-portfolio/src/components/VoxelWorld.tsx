@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   ScrollControls, 
@@ -9,8 +9,50 @@ import {
   Environment,
 } from '@react-three/drei';
 import VoxelModel from './VoxelModel';
+import { EnderDragon, Zombie, Skeleton, Steve } from './Mobs';
 import { PROJECTS, HERO_CHARACTER, LAPTOP_VOXEL, CREEPER_VOXEL, SKILLS, CERTIFICATIONS } from '../constants';
 import * as THREE from 'three';
+
+const MovingEnderDragon: React.FC = () => {
+  const ref = useRef<THREE.Group>(null);
+  const lightRef = useRef<THREE.PointLight>(null);
+  const [targetIdx, setTargetIdx] = useState(0);
+  
+  const corners = useMemo(() => [
+    new THREE.Vector3(-10, 6, 0),  // Top Left
+    new THREE.Vector3(10, 6, 0),   // Top Right
+    new THREE.Vector3(10, -6, 0),  // Bottom Right
+    new THREE.Vector3(-10, -6, 0), // Bottom Left
+  ], []);
+
+  useFrame((state, delta) => {
+    if (ref.current) {
+      const target = corners[targetIdx];
+      // Slowed down movement for a graceful, slow glide
+      ref.current.position.lerp(target, 0.003);
+      
+      // Look at target smoothly
+      const lookTarget = new THREE.Vector3().copy(target);
+      ref.current.lookAt(lookTarget);
+      
+      // Pulsing light effect
+      if (lightRef.current) {
+        lightRef.current.intensity = 2 + Math.sin(state.clock.elapsedTime * 3) * 1.5;
+      }
+
+      if (ref.current.position.distanceTo(target) < 1.5) {
+        setTargetIdx((prev) => (prev + 1) % corners.length);
+      }
+    }
+  });
+
+  return (
+    <group ref={ref}>
+       <EnderDragon scale={1.5} glow={true} />
+       <pointLight ref={lightRef} color="#ff00ff" distance={20} intensity={5} />
+    </group>
+  );
+};
 
 const InteractiveVoxel: React.FC<{ data: any, scale: number, jump?: boolean }> = ({ data, scale, jump }) => {
   const [hovered, setHovered] = useState(false);
@@ -64,12 +106,21 @@ const Scene: React.FC = () => {
       </Suspense>
       
       <Scroll>
+        {/* Intro */}
         <group position={[0, 0, 0]}>
           <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
             <Center>
               <InteractiveVoxel data={HERO_CHARACTER} scale={0.7} />
             </Center>
           </Float>
+        </group>
+
+        {/* Bio Section - Humanoid NPCs around */}
+        <group position={[-5, -10, -2]}>
+          <Steve scale={0.8} />
+        </group>
+        <group position={[5, -14, -2]}>
+          <Zombie scale={0.8} />
         </group>
 
         <group position={[0, -12, -2]}>
@@ -92,6 +143,11 @@ const Scene: React.FC = () => {
            </Float>
         </group>
 
+        {/* Project Section NPCs */}
+        <group position={[-8, -45, -3]}>
+           <Skeleton scale={1} />
+        </group>
+
         <group position={[0, -48, 0]}>
           {PROJECTS.map((p, i) => (
             <Float key={p.id} position={[(i % 2 === 0 ? -5 : 5), -i * 5, -2]} speed={2}>
@@ -108,12 +164,9 @@ const Scene: React.FC = () => {
           </Float>
         </group>
 
-        <group position={[0, -100, 0]}>
-          <Float speed={2}>
-            <Center>
-              <InteractiveVoxel data={HERO_CHARACTER} scale={0.7} />
-            </Center>
-          </Float>
+        {/* The End section with Ender Dragon */}
+        <group position={[0, -115, 0]}>
+           <MovingEnderDragon />
         </group>
       </Scroll>
 
@@ -138,14 +191,17 @@ const Scene: React.FC = () => {
           </section>
 
           <section className="h-screen flex items-center justify-start px-10 md:px-20">
-            <div className="mc-panel p-8 max-w-2xl bg-[#c6c6c6] border-8 border-white">
-              <h2 className="text-2xl mb-6 text-black border-b-8 border-gray-400 pb-2 uppercase">_LOG_BIOGRAPHY</h2>
-              <p className="text-[10px] text-gray-700 leading-relaxed mb-6 font-bold uppercase">
+            <div className="mc-panel p-8 max-w-2xl bg-[#c6c6c6] border-8 border-white hover:scale-[1.02] hover:border-yellow-400 transition-all duration-300 group cursor-default">
+              <h2 className="text-2xl mb-6 text-black border-b-8 border-gray-400 pb-2 uppercase group-hover:border-yellow-600 transition-colors">_LOG_BIOGRAPHY</h2>
+              <p className="text-[10px] text-gray-700 leading-relaxed mb-6 font-bold uppercase group-hover:text-black transition-colors">
                 Crafting intelligent systems through computer vision and machine learning.
               </p>
+              <p className="text-[10px] text-gray-700 leading-relaxed mb-6 font-bold uppercase group-hover:text-black transition-colors">
+              Orchestrating scalable realms through strategic automation and survival-ready deployments.
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                <div className="bg-black/80 text-cyan-400 p-3 text-[8px] border-2 border-cyan-900 font-bold uppercase">EXP: 99+ LVL</div>
-                <div className="bg-black/80 text-cyan-400 p-3 text-[8px] border-2 border-cyan-900 font-bold uppercase">ROLE: CRAFTER</div>
+                <div className="bg-black/80 text-cyan-400 p-3 text-[8px] border-2 border-cyan-900 font-bold uppercase group-hover:border-cyan-400 transition-colors">EXP: 99+ LVL</div>
+                <div className="bg-black/80 text-cyan-400 p-3 text-[8px] border-2 border-cyan-900 font-bold uppercase group-hover:border-cyan-400 transition-colors">ROLE: CRAFTER</div>
               </div>
             </div>
           </section>
@@ -154,18 +210,18 @@ const Scene: React.FC = () => {
             <h2 className="text-4xl font-black mb-16 drop-shadow-[6px_6px_0px_rgba(0,0,0,1)] text-white uppercase">Skill Tree</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl px-10 w-full">
               {categories.map(cat => (
-                <div key={cat} className="mc-panel p-6 bg-white/95">
+                <div key={cat} className="mc-panel p-6 bg-white/95 hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
                   <h3 className="text-[14px] font-black text-black mb-6 border-b-4 border-gray-300 pb-2 uppercase">{cat}</h3>
                   <div className="grid grid-cols-1 gap-4">
                     {SKILLS.filter(s => s.category === cat).map(skill => (
-                      <div key={skill.name}>
+                      <div key={skill.name} className="group/skill">
                         <div className="flex justify-between mb-2">
-                          <span className="text-[8px] font-bold text-black uppercase">{skill.name}</span>
+                          <span className="text-[8px] font-bold text-black uppercase group-hover/skill:text-blue-600 transition-colors">{skill.name}</span>
                           <span className="text-[8px] font-bold text-gray-500 uppercase">{skill.level}%</span>
                         </div>
                         <div className="w-full h-4 bg-gray-300 border-2 border-black relative">
                           <div 
-                            className="h-full transition-all duration-1000" 
+                            className="h-full transition-all duration-1000 group-hover/skill:brightness-110" 
                             style={{ width: `${skill.level}%`, backgroundColor: skill.color }}
                           ></div>
                         </div>
@@ -225,6 +281,24 @@ const Scene: React.FC = () => {
             </div>
           </section>
 
+
+          <section className="min-h-screen py-24 flex flex-col items-center justify-center bg-black/40">
+             <h2 className="text-4xl font-black mb-16 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] text-white uppercase">Certifications</h2>
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-10 w-full max-w-7xl">
+               {CERTIFICATIONS.map(cert => (
+                 <div key={cert.id} className="mc-panel p-6 bg-[#c6c6c6] border-8 border-white hover:border-yellow-400 hover:-translate-y-2 hover:shadow-[15px_15px_0px_rgba(0,0,0,1)] transition-all duration-300 group">
+                   <div className="flex flex-col items-center text-center">
+                     <div className="w-12 h-12 mb-4 pixelated grayscale group-hover:grayscale-0 transition-all opacity-80" style={{backgroundImage: 'url(https://minecraft.wiki/images/Knowledge_Book_JE2_BE2.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}} />
+                     <h3 className="text-[10px] font-black text-black mb-2 uppercase">{cert.title}</h3>
+                     <p className="text-[8px] text-gray-700 mb-1 uppercase font-bold">{cert.issuer}</p>
+                     <p className="text-[7px] text-gray-500 mb-6 uppercase font-bold">DATE: {cert.date}</p>
+                     <button onClick={() => window.open(cert.link, '_blank')} className="mc-button-sm w-full py-3 text-[8px] text-white font-bold bg-blue-600">VIEW_LOG</button>
+                   </div>
+                 </div>
+               ))}
+             </div>
+          </section>
+
           <section id="contact-view" className="h-screen flex items-center justify-center">
             <div className="mc-panel p-10 text-center bg-white border-8 border-gray-300 max-w-2xl w-full mx-6">
               <h2 className="text-3xl font-black text-black mb-8 uppercase">Transmission</h2>
@@ -241,20 +315,20 @@ const Scene: React.FC = () => {
             </div>
           </section>
 
-          <section className="min-h-screen py-24 flex flex-col items-center justify-center bg-black/40">
-             <h2 className="text-4xl font-black mb-16 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] text-white uppercase">Certifications</h2>
-             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-10 w-full max-w-7xl">
-               {CERTIFICATIONS.map(cert => (
-                 <div key={cert.id} className="mc-panel p-6 bg-[#c6c6c6] border-8 border-white hover:border-yellow-400 transition-colors group">
-                   <div className="flex flex-col items-center text-center">
-                     <div className="w-12 h-12 mb-4 pixelated grayscale group-hover:grayscale-0 transition-all opacity-80" style={{backgroundImage: 'url(https://minecraft.wiki/images/Knowledge_Book_JE2_BE2.png)', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}} />
-                     <h3 className="text-[10px] font-black text-black mb-2 uppercase">{cert.title}</h3>
-                     <p className="text-[8px] text-gray-700 mb-1 uppercase font-bold">{cert.issuer}</p>
-                     <p className="text-[7px] text-gray-500 mb-6 uppercase font-bold">DATE: {cert.date}</p>
-                     <button onClick={() => window.open(cert.link, '_blank')} className="mc-button-sm w-full py-3 text-[8px] text-white font-bold bg-blue-600">VIEW_LOG</button>
-                   </div>
-                 </div>
-               ))}
+          <section className="h-screen flex flex-col items-center justify-center bg-purple-900/20">
+             <div className="text-center">
+                <h2 className="text-6xl sm:text-9xl font-black text-white drop-shadow-[10px_10px_0px_#ff00ff] uppercase mb-12 animate-pulse">
+                  THE END
+                </h2>
+                <div className="mc-panel bg-black/80 px-8 py-4 border-4 border-purple-500">
+                  <p className="text-[12px] text-purple-400 font-bold uppercase tracking-widest">Adventure Completed</p>
+                </div>
+                <button 
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="mc-button mt-12 px-8 py-4 text-white text-[10px] font-bold"
+                >
+                  RESTART_JOURNEY
+                </button>
              </div>
           </section>
         </div>
@@ -268,7 +342,7 @@ const VoxelWorld: React.FC = () => {
     <div className="absolute inset-0 z-0 h-screen w-screen overflow-hidden bg-black">
       <Canvas shadows camera={{ position: [0, 0, 15], fov: 40 }}>
         <Suspense fallback={null}>
-          <ScrollControls pages={13} damping={0.15} infinite={true}>
+          <ScrollControls pages={15} damping={0.15} infinite={false}>
             <Scene />
           </ScrollControls>
         </Suspense>

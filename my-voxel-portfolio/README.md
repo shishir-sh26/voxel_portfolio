@@ -2,7 +2,7 @@
 
 Welcome to **VoxelQuest**, a fully immersive, 3D voxel-based portfolio world inspired by the aesthetic of Minecraft. Navigate through a blocky digital landscape, interact with voxel models, and chat with an AI guide about my technical journey.
 
-![Voxel Portfolio Preview](https://picsum.photos/1200/600?grayscale&blur=2)
+![Voxel Portfolio Preview](https://voxel-portfolio-eight.vercel.app/)
 
 ## 🌟 Key Features
 

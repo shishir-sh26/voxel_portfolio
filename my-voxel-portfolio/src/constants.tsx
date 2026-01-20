@@ -28,7 +28,25 @@ const createVoxelCube = (size: number, color: string, offset: [number, number, n
   return voxels;
 };
 
-// RESTORED: Detailed Voxel Creeper
+// Detailed Voxel Ender Dragon (Simplified for Performance)
+export const ENDER_DRAGON_VOXEL: VoxelData[] = [
+  // Body
+  ...createVoxelCube(3, '#1a1a1a', [-1.5, 0, -1.5]),
+  // Tail
+  ...createVoxelCube(1, '#1a1a1a', [-0.5, 0.5, -2.5]),
+  ...createVoxelCube(1, '#1a1a1a', [-0.5, 0.8, -3.5]),
+  // Neck
+  ...createVoxelCube(1, '#1a1a1a', [-0.5, 1.5, 1.5]),
+  // Head
+  ...createVoxelCube(1.5, '#1a1a1a', [-0.75, 2.2, 2]),
+  { pos: [-0.4, 2.8, 3.4], color: '#ff00ff' }, // Eye L
+  { pos: [0.4, 2.8, 3.4], color: '#ff00ff' },  // Eye R
+  // Wings
+  ...createVoxelCube(4, '#000', [-5.5, 1, -1]), // Wing L
+  ...createVoxelCube(4, '#000', [1.5, 1, -1]),  // Wing R
+];
+
+// Detailed Voxel Creeper
 export const CREEPER_VOXEL: VoxelData[] = [
   ...createVoxelCube(1.5, '#4ade80', [-0.75, 4, -0.75]), // Head
   { pos: [-0.4, 4.8, 0.76], color: '#000' }, // Eye L
@@ -41,7 +59,7 @@ export const CREEPER_VOXEL: VoxelData[] = [
   ...createVoxelCube(0.8, '#16a34a', [0.2, 0, -1]),   // Back Leg R
 ];
 
-// RESTORED: Detailed Voxel Character
+// Character Variation: The Golden Dev (Original)
 export const HERO_CHARACTER: VoxelData[] = [
   ...createVoxelCube(2, '#444', [-1, 0, -1]), // Body
   ...createVoxelCube(1.5, '#facc15', [-0.75, 2, -0.75]), // Head
@@ -51,7 +69,35 @@ export const HERO_CHARACTER: VoxelData[] = [
   ...createVoxelCube(0.5, '#333', [0.7, 0.5, -0.25]), // Arm R
 ];
 
-// RESTORED: Detailed Voxel Laptop
+// Character Variation: Classic Steve
+export const STEVE_VOXEL: VoxelData[] = [
+  ...createVoxelCube(2, '#00b8d4', [-1, 0, -1]), // Shirt (Cyan)
+  ...createVoxelCube(1.5, '#ffccbc', [-0.75, 2, -0.75]), // Head (Skin tone)
+  ...createVoxelCube(0.5, '#4e342e', [-0.75, 3.2, -0.75]), // Hair (Top)
+  { pos: [-0.5, 2.5, 0.5], color: '#fff' }, // Eye L
+  { pos: [0.5, 2.5, 0.5], color: '#fff' }, // Eye R
+  ...createVoxelCube(0.5, '#ffccbc', [-1.2, 0.5, -0.25]), // Arm L
+  ...createVoxelCube(0.5, '#ffccbc', [0.7, 0.5, -0.25]), // Arm R
+];
+
+// Character Variation: Skeleton Coder
+export const SKELETON_VOXEL: VoxelData[] = [
+  ...createVoxelCube(2, '#e0e0e0', [-1, 0, -1]), // Ribs/Body
+  ...createVoxelCube(1.5, '#eeeeee', [-0.75, 2, -0.75]), // Skull
+  { pos: [-0.4, 2.6, 0.51], color: '#000' }, // Eye socket L
+  { pos: [0.4, 2.6, 0.51], color: '#000' }, // Eye socket R
+  ...createVoxelCube(0.3, '#bdbdbd', [-1.1, 0.2, -0.15]), // Thin Arm L
+  ...createVoxelCube(0.3, '#bdbdbd', [0.8, 0.2, -0.15]), // Thin Arm R
+];
+
+export const SKINS = [
+  { id: 'dev', name: 'Golden Dev', model: HERO_CHARACTER, color: '#facc15' },
+  { id: 'steve', name: 'Classic Steve', model: STEVE_VOXEL, color: '#00b8d4' },
+  { id: 'skeleton', name: 'Skeleton Coder', model: SKELETON_VOXEL, color: '#eeeeee' },
+  { id: 'creeper', name: 'Creeper Bot', model: CREEPER_VOXEL, color: '#4ade80' }
+];
+
+// Detailed Voxel Laptop
 export const LAPTOP_VOXEL: VoxelData[] = [
   ...createVoxelCube(3, '#222', [-1.5, 0, -1.5]), // Base
   ...createVoxelCube(3, '#111', [-1.5, 0.2, -1.5]), // Screen Frame

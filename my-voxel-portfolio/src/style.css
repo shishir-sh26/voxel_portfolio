@@ -12,6 +12,11 @@ body {
   user-select: none;
 }
 
+/* Force hide system cursor for EVERY element to prevent double cursor issues */
+* {
+  cursor: none !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
@@ -25,7 +30,6 @@ body {
 }
 
 .mc-button, .mc-button-sm {
-  cursor: none !important;
   text-transform: uppercase;
   transition: all 0.1s;
 }
@@ -85,7 +89,7 @@ body {
   width: 60px;
   height: 60px;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 10000; /* Extremely high to stay on top of modals */
   /* Use the specified local image file */
   background-image: url('/Diamond_Sword-removebg-preview.png');
   background-size: contain;
@@ -101,23 +105,8 @@ body:active .sword-cursor {
   transform: translate(-75%, -25%) rotate(-35deg);
 }
 
-/* Ensure interactive elements still hide the system cursor */
-a, button, input, [role="button"], canvas, section {
-  cursor: none !important;
-}
-
 @layer base {
   * {
     font-family: 'Press Start 2P', cursive;
-  }
-}
-
-@theme {
-  --font-press-start: "Press Start 2P", cursive;
-}
-
-@layer base {
-  * {
-    font-family: var(--font-press-start);
   }
 }
