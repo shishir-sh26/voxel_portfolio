@@ -5,6 +5,7 @@ import VoxelWorld from './components/VoxelWorld';
 import ChatInterface from './components/ChatInterface';
 import VoxelModel from './components/VoxelModel';
 import { SPLASH_TEXTS, SKINS } from './constants';
+import { Analytics } from "@vercel/analytics/react";
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -308,6 +309,7 @@ const App: React.FC = () => {
 
       {/* Render cursor last to ensure it's ALWAYS on top of everything else */}
       <CustomCursor />
+      <Analytics />
     </div>
   );
 };
