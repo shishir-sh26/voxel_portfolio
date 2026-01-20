@@ -107,13 +107,17 @@ export const LAPTOP_VOXEL: VoxelData[] = [
 export const SKILLS: Skill[] = [
   { name: 'React', level: 95, color: '#61dafb', category: 'Frontend' },
   { name: 'Next.js', level: 90, color: '#000000', category: 'Frontend' },
-  { name: 'TypeScript', level: 95, color: '#3178c6', category: 'Frontend' },
+  { name: 'ThreeJs', level: 75, color: '#3178c6', category: 'Frontend' },
   { name: 'Tailwind CSS', level: 90, color: '#38bdf8', category: 'Frontend' },
   { name: 'Node.js', level: 90, color: '#339933', category: 'Backend' },
-  { name: 'Python', level: 85, color: '#3776ab', category: 'Backend' },
+  { name: 'FastAPI', level: 85, color: '#3776ab', category: 'Backend' },
+  { name: 'Flask', level: 65, color: '#a71fa0', category: 'Backend' },
+  { name: 'Express.js', level: 80, color: '#000000', category: 'Backend' },
   { name: 'PyTorch', level: 80, color: '#ee4c2c', category: 'AI & ML' },
+  { name: 'GenAI', level: 60, color: '#b8c229', category: 'AI & ML' },
   { name: 'TensorFlow', level: 75, color: '#ff6f00', category: 'AI & ML' },
-  { name: 'Arduino', level: 85, color: '#00979d', category: 'IoT & Embedded' }
+  { name: 'Arduino', level: 30, color: '#00979d', category: 'IoT & Embedded' },
+  { name: 'Raspberry Pi', level: 40, color: '#c31d39', category: 'IoT & Embedded' }
 ];
 
 export const PROJECTS: Project[] = [
@@ -124,7 +128,7 @@ export const PROJECTS: Project[] = [
     tags: ['Deep Learning', 'PyTorch', 'React'],
     thumbnail: 'https://picsum.photos/400/300?random=1',
     category: 'ai',
-    videoUrl: '/AvainWeatherNet.mp4',
+    videoUrl: '/Minecraft_Video_Bird_Sound_Weather_Prediction.mp4',
     codeUrl: 'https://github.com/shishir-sh26/AvainWeatherNet',
     voxelArt: createVoxelCube(2, '#3b82f6', [0, 0, 0])
   },
@@ -135,7 +139,7 @@ export const PROJECTS: Project[] = [
     tags: ['Computer Vision', 'FastAPI', 'React'],
     thumbnail: 'https://picsum.photos/400/300?random=2',
     category: 'ai',
-    videoUrl: '/agrisense.mp4',
+    videoUrl: '/Minecraft_Plant_Disease_Detection_Video.mp4',
     liveUrl: 'https://shrinidhianchan.github.io/ai-plant-based-agrisense/',
     codeUrl: 'https://github.com/shishir-sh26/agrisense',
     voxelArt: createVoxelCube(2, '#10b981', [0, 0, 0])
@@ -147,7 +151,7 @@ export const PROJECTS: Project[] = [
     tags: ['Real-time', 'Socket.io', 'Node.js'],
     thumbnail: 'https://picsum.photos/400/300?random=3',
     category: 'web',
-    videoUrl: '/WarRoom_Hackathon_Collaboration_Dashboard_Video.mp4',
+    videoUrl: '/War_Room_Video_Generation.mp4',
     liveUrl: 'https://h-teamstate.vercel.app/',
     codeUrl: 'https://github.com/shishir-sh26/H-TeamState',
     voxelArt: createVoxelCube(2, '#f59e0b', [0, 0, 0])
@@ -159,7 +163,7 @@ export const PROJECTS: Project[] = [
     tags: ['MERN', 'Auth', 'Dashboard'],
     thumbnail: 'https://picsum.photos/400/300?random=4',
     category: 'web',
-    videoUrl: '/Expense_Tracker_Video_Generation.mp4',
+    videoUrl: '/expense_tracker.mp4',
     codeUrl: 'https://github.com/shishir-sh26/expense-tracker',
     voxelArt: createVoxelCube(2, '#6366f1', [0, 0, 0])
   },
@@ -170,7 +174,7 @@ export const PROJECTS: Project[] = [
     tags: ['Mobile', 'Geolocation', 'Firebase'],
     thumbnail: 'https://picsum.photos/400/300?random=5',
     category: 'mobile',
-    videoUrl: '/Blood_Donor_Search_Application.mp4',
+    videoUrl: '/blood_donar.mp4',
     codeUrl: 'https://github.com/shishir-sh26/-blooddonar',
     voxelArt: createVoxelCube(2, '#ef4444', [0, 0, 0])
   },
@@ -181,7 +185,7 @@ export const PROJECTS: Project[] = [
     tags: ['LSTM', 'Data Science', 'Python'],
     thumbnail: 'https://picsum.photos/400/300?random=6',
     category: 'ai',
-    videoUrl: '/AI_Stock_Prediction_Video_Ready.mp4',
+    videoUrl: '/stock_prediction.mp4',
     codeUrl: 'https://github.com/shishir-sh26/Stock-prediction',
     voxelArt: createVoxelCube(2, '#a855f7', [0, 0, 0])
   }
@@ -191,15 +195,15 @@ export const CERTIFICATIONS: Certification[] = [
   {
     id: 'c1',
     title: 'Deep Learning Specialization',
-    issuer: 'DeepLearning.AI',
-    date: '2023',
+    issuer: 'Dhaarini Academy',
+    date: '2025',
     link: '#'
   },
   {
     id: 'c2',
     title: 'TensorFlow Developer Certificate',
-    issuer: 'Google',
-    date: '2024',
+    issuer: 'Kaggle',
+    date: '2025',
     link: '#'
   },
   {
@@ -208,7 +212,15 @@ export const CERTIFICATIONS: Certification[] = [
     issuer: 'Amazon Web Services',
     date: '2023',
     link: '#'
+  },
+  {
+    id: 'c4',
+    title: 'Data Analytics',
+    issuer: 'IT Specialist',
+    date: '2025',
+    link: '#'
   }
+  
 ];
 
 export const SYSTEM_INSTRUCTION = `

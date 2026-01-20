@@ -283,7 +283,7 @@ const Scene: React.FC = () => {
 
 
           <section className="min-h-screen py-24 flex flex-col items-center justify-center bg-black/40">
-             <h2 className="text-4xl font-black mb-16 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] text-white uppercase">Certifications</h2>
+             <h2 className="text-4xl font-black mb-16 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] text-white uppercase">Achievements</h2>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-10 w-full max-w-7xl">
                {CERTIFICATIONS.map(cert => (
                  <div key={cert.id} className="mc-panel p-6 bg-[#c6c6c6] border-8 border-white hover:border-yellow-400 hover:-translate-y-2 hover:shadow-[15px_15px_0px_rgba(0,0,0,1)] transition-all duration-300 group">
