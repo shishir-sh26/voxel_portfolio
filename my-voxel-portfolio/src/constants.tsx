@@ -265,3 +265,4 @@ export const CERTIFICATIONS: Certification[] = [
     link: '#'
   }
 ];
+export const SYSTEM_INSTRUCTION = "";
