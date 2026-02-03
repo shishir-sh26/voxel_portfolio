@@ -184,7 +184,7 @@ const Scene: React.FC = () => {
                  <p className="text-[10px] text-black font-bold uppercase tracking-tight">AI & ML Engineer / Developer</p>
               </div>
               <div className="flex gap-4 justify-center">
-                <button className="mc-button px-6 py-3 text-[10px] text-white font-bold" onClick={() => window.open('/resume.pdf')}>RESUME.EXE</button>
+                <button className="mc-button px-6 py-3 text-[10px] text-white font-bold" onClick={() => window.open('/resume_shishir.pdf')}>RESUME.EXE</button>
                 <button className="mc-button px-6 py-3 text-[10px] text-white font-bold bg-blue-600" onClick={() => document.getElementById('contact-view')?.scrollIntoView({behavior: 'smooth'})}>CONTACT_ME</button>
               </div>
             </div>
